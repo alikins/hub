@@ -349,7 +349,7 @@ module Hub
         new_branch_name ||= "#{user}-#{branch}"
 
         if remotes.include? user
-          args.before ['remote', 'set-branches', '--add', user, branch]
+          #args.before ['remote', 'set-branches', '--add', user, branch]
           args.before ['fetch', user, "+refs/heads/#{branch}:refs/remotes/#{user}/#{branch}"]
         else
           url = github_project(url.project_name, user).git_url(:private => pull_data['head']['repo']['private'],
@@ -358,7 +358,7 @@ module Hub
         end
         idx = args.index url_arg
         args.delete_at idx
-        args.insert idx, '--track', '-B', new_branch_name, "#{user}/#{branch}"
+        args.insert idx, '--track', '-b', new_branch_name, "#{user}/#{branch}"
       end
     end
 
