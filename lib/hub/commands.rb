@@ -350,6 +350,7 @@ module Hub
 
         if remotes.include? user
           #args.before ['remote', 'set-branches', '--add', user, branch]
+          args.before ['config', '--add', "remote.#{user}.fetch", "+refs/heads/#{branch}:/refs/remotes/#{branch}"]
           args.before ['fetch', user, "+refs/heads/#{branch}:refs/remotes/#{user}/#{branch}"]
         else
           url = github_project(url.project_name, user).git_url(:private => pull_data['head']['repo']['private'],
